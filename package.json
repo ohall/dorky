@@ -1,0 +1,28 @@
+{
+  "name": "podsmash",
+  "version": "1.0.0",
+  "description": "a node app for distributing podcasts",
+  "main": "podsmash.js",
+  "dependencies": {
+    "ftp": "^0.3.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ohall/podsmash.git"
+  },
+  "keywords": [
+    "node",
+    "ftp",
+    "podcast"
+  ],
+  "author": "Oakley Hall <ohall@grtmail.com> (http://www.grassroots-tech.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ohall/podsmash/issues"
+  },
+  "homepage": "https://github.com/ohall/podsmash"
+}
