@@ -4,7 +4,10 @@
   "description": "a node app for distributing podcasts",
   "main": "podsmash.js",
   "dependencies": {
-    "ftp": "^0.3.8"
+    "chalk": "^0.5.1",
+    "commander": "^2.5.1",
+    "ftp": "^0.3.8",
+    "xml-writer": "^1.6.0"
   },
   "devDependencies": {},
   "scripts": {
