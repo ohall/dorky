@@ -7,7 +7,8 @@
     "chalk": "^0.5.1",
     "commander": "^2.5.1",
     "ftp": "^0.3.8",
-    "xml-writer": "^1.6.0"
+    "prompt": "^0.2.14",
+    "xml2js": "^0.4.4"
   },
   "devDependencies": {},
   "scripts": {

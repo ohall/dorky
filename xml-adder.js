@@ -21,15 +21,17 @@
 
 
     module.exports = function(){
-        var XMLWriter = require('xml-writer'),
-            xw = new XMLWriter();
-        xw.startDocument();
-        xw.startElement('root');
-        xw.writeAttribute('foo', 'value');
-        xw.text('Some content');
-        xw.endDocument();
 
-        console.log(xw.toString());
-    }
-    ;
+        var fs = require('fs'),
+            xml2js = require('xml2js');
+
+        var parser = new xml2js.Parser();
+        fs.readFile('./test.xml', function(err, data) {
+            parser.parseString(data, function (err, result) {
+                console.dir(result);
+                console.log('Done');
+            });
+        });
+
+    };
 })();

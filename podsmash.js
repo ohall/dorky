@@ -13,6 +13,8 @@
     var chalk = require('chalk');
     var program = require('commander');
 
+    var prompt = require('prompt');
+
     console.log(  chalk.blue.bold('Welcome to PodSmash!')  );
 
     program
@@ -34,7 +36,7 @@
     //console.log('  - %s cheese', program.cheese);
 
 
-    //xml();
+    xml();
 
     //if( process.argv[2] && process.argv[3] && process.argv[4] ){
     //    ftp( process.argv[2], process.argv[3], process.argv[4], function () {
@@ -43,5 +45,18 @@
     //}else{
     //    console.log('Requires args: FTP Host, User, Password');
     //}
+
+
+    //prompt.start();
+
+
+    //prompt.get(['Title', 'path'], function (err, result) {
+    //    //
+    //    // Log the results.
+    //    //
+    //    console.log('Command-line input received:');
+    //    console.log('  Title: ' + result.Title);
+    //    console.log('  path: ' + result.path);
+    //});
 
 })();
