@@ -159,39 +159,30 @@
     //<itunes:explicit>Yes</itunes:explicit>
     //</item>
 
-    module.exports = function(){
-
-
-        function Episode(){
-            this['title'] = 'Blarg';
-            this['itunes:subtitle'] = 'Cat';
-            this['itunes:author'] = 'Fred';
-            this['itunes:image'] = 'Dog';
-            this['itunes:summary'] = 'qwert';
-            this['enclosure'] = '2345';
-            this['guid'] = 'sfdg';
-            this['itunes:duration'] = 'sdfg';
-            this['pubDate'] = 'sdfg';
-            this['itunes:explicit'] = 'sfg';
-        }
+    module.exports = function(podcast, episode, cb){
 
         var fs = require('fs'),
-            xml2js = require('xml2js');
+            xml2js = require('xml2js'),
+            parser = new xml2js.Parser(),
+            xmlPath = podcast.filepath + podcast.xmlFile;
 
-        var parser = new xml2js.Parser();
-        fs.readFile('./foo.xml', function(err, data) {
+        fs.readFile(xmlPath, function(err, data) {
             parser.parseString(data, function (err, result) {
+                if(err){
+                    cb(err);
+                }
+                var items = result.rss.channel[0].item,
+                    builder = new xml2js.Builder();
 
-                var items = result.rss.channel[0].item;
+                console.log( episode );
+                items.push( episode );
+                var xml = builder.buildObject( result );
 
-
-                var ep = new Episode();
-                items.push( ep );
-
-                var builder = new xml2js.Builder();
-                var xml = builder.buildObject(result);
-
-                console.log( xml );
+                fs.writeFile( xmlPath, xml, function ( err ) {
+                    if( err ){
+                        cb( err );
+                    }
+                });
 
             });
         });
