@@ -14,14 +14,11 @@
     var podcast = {
         localpath : './',
         serverpath : 'http://coolsite.com/pod/',
-        xmlFile: 'foo.xml'
+        xmlFile: 'foo.xml',
+        author:'Oakley'
     };
 
-    function getDateStamp(){
-        var now = new Date();
-        console.log( Date.parse(now.getTime()) );
-        return Date.parse(now.getTime());
-    }
+    function getDateStamp(){ return new Date(Date.now()).toString();}
 
     function Episode(pod){
         var title,subtitle,author,image,summary,file,duration,isExplicit,
@@ -47,42 +44,61 @@
                 toreturn['guid']            = pod.serverpath + ( file || '' );
                 toreturn['itunes:duration'] = duration||'';
                 toreturn['pubDate']         = pubdate;
-                toreturn['itunes:explicit'] = isExplicit||false;
+                toreturn['itunes:explicit'] = isExplicit||'No';
 
                 return toreturn;
             }
         };
     }
-
     var episode = new Episode(podcast);
 
-    prompt.get(['Title'], function (err, result) {
-        episode.title( result.Title );
+
+    var promptschema = {
+        properties: {
+            title: {
+                description: 'Episode title'.magenta
+            },
+            subtitle: {
+                description: 'Episode subtitle'.cyan
+            },
+            author: {
+                description: 'Episode author'.white,
+                default: podcast.author
+            },
+            image: {
+                description: 'Cover image name'.yellow
+            },
+            summary: {
+                description: 'Episode summary'.magenta
+            },
+            audFile: {
+                description: 'Audio file name'.cyan
+            },
+            duration: {
+                description: 'Episode duration'.white
+            },
+            isExplicit: {
+                description: 'Explict? Yes/No'.yellow
+            }
+        }
+    };
+
+    prompt.message = 'Podsmash'.rainbow;
+    prompt.delimiter = '  -->  '.rainbow;
+    prompt.get(promptschema, function (err, result) {
+        episode.title( result.title );
+        episode.subtitle( result.subtitle );
+        episode.author( result.author );
+        episode.image( result.image );
+        episode.summary( result.summary );
+        episode.audFile( result.audFile );
+        episode.duration( result.duration );
+        episode.isExplicit( result.isExplicit );
         xml(podcast, episode.getXMLishObject(), function(err){
             console.log( JSON.stringify(err) );
             throw err;
         });
     });
-
-    //program
-    //    .version('0.0.1')
-    //    .option( '-u, --url',       'Add file(s) url')
-    //    .option( '-t, --title',     'Add title')
-    //    .option( '-s, --subtitle',  'Add subtitle')
-    //    .option( '-i, --image',     'Add image file name')
-    //    .option( '-a, --author',    'Add author')
-    //    .option( '-s, --summary',   'Add summary')
-    //    .option( '-f, --filename',  'Add audio file name')
-    //    .option( '-e, --explicit',  'Add explicit flag')
-    //    .parse(process.argv);
-
-    //console.log('you ordered a pizza with:');
-    //if (program.title){
-    //    episode.title = program.title;
-    //}
-    //if (program.pineapple) console.log('  - pineapple');
-    //if (program.bbq) console.log('  - bbq');
-    //console.log('  - %s cheese', program.cheese);
 
     //if( process.argv[2] && process.argv[3] && process.argv[4] ){
     //    ftp( process.argv[2], process.argv[3], process.argv[4], function () {

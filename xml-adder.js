@@ -164,7 +164,7 @@
         var fs = require('fs'),
             xml2js = require('xml2js'),
             parser = new xml2js.Parser(),
-            xmlPath = podcast.filepath + podcast.xmlFile;
+            xmlPath = podcast.localpath + podcast.xmlFile;
 
         fs.readFile(xmlPath, function(err, data) {
             parser.parseString(data, function (err, result) {
@@ -174,7 +174,6 @@
                 var items = result.rss.channel[0].item,
                     builder = new xml2js.Builder();
 
-                console.log( episode );
                 items.push( episode );
                 var xml = builder.buildObject( result );
 
