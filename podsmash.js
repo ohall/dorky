@@ -4,12 +4,14 @@
 
 (function () {
     'use strict';
-    var ftp = require('./ftp');
-    var xml = require('./xml-adder');
-    var chalk = require('chalk');
-    var program = require('commander');
-    var prompt = require('prompt');
-    //console.log(  chalk.blue.bold('Welcome to PodSmash!')  );
+    var ftp     = require('./ftp'),
+        xml     = require('./xml-adder'),
+        chalk   = require('chalk'),
+        prompt  = require('prompt'),
+        fs      = require("fs"),
+        podcasts;
+
+    var PODSFILE = './podcasts.json';
 
     var podcast = {
         localpath : './',
@@ -17,6 +19,17 @@
         xmlFile: 'foo.xml',
         author:'Oakley'
     };
+
+
+    fs.exists(PODSFILE, function(exists) {
+        if (exists) {
+            podcasts = require(PODSFILE);
+        } else {
+            fs.writeFile( PODSFILE, JSON.stringify( podcast ), 'utf8', function(){
+                console.log( 'wrote pod file' );
+            });
+        }
+    });
 
     function getDateStamp(){ return new Date(Date.now()).toString();}
 
