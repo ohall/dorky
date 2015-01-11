@@ -1,8 +1,8 @@
 {
-  "name": "podsmash",
+  "name": "dorky",
   "version": "1.0.0",
   "description": "a node app for distributing podcasts",
-  "main": "podsmash.js",
+  "main": "dorky.js",
   "dependencies": {
     "chalk": "^0.5.1",
     "commander": "^2.5.1",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ohall/podsmash.git"
+    "url": "https://github.com/ohall/dorky.git"
   },
   "keywords": [
     "node",
@@ -26,7 +26,7 @@
   "author": "Oakley Hall <ohall@grtmail.com> (http://www.grassroots-tech.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ohall/podsmash/issues"
+    "url": "https://github.com/ohall/dorky/issues"
   },
-  "homepage": "https://github.com/ohall/podsmash"
+  "homepage": "https://github.com/ohall/dorky"
 }
