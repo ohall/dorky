@@ -4,8 +4,8 @@
 
 (function () {
     'use strict';
-    var ftp      = require('./ftp'),
-        prompt   = require('./dorkyprompt'),
+    var ftp      = require('./modules/ftp'),
+        prompt   = require('./modules/dorkyprompt'),
         chalk    = require('chalk'),
         fs       = require("fs"),
         podcasts = [{defaults:{}}],
