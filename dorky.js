@@ -5,9 +5,8 @@
 (function () {
     'use strict';
     var ftp      = require('./ftp'),
-        xml      = require('./xml-adder'),
+        prompt   = require('./dorkyprompt'),
         chalk    = require('chalk'),
-        prompt   = require('prompt'),
         fs       = require("fs"),
         podcasts = [{defaults:{}}],
         episode;
@@ -16,7 +15,7 @@
 
     function getDateStamp(){ return new Date(Date.now()).toString();}
 
-    //var podcast = {
+    //var podcast = {git sat
     //    localpath : './',
     //    serverpath : 'http://coolsite.com/pod/',
     //    xmlFile: 'foo.xml',
@@ -28,58 +27,9 @@
         if (exists) {
             podcasts = JSON.parse(fs.readFileSync(PODSFILE, 'utf8'));
             episode = new Episode(podcasts);
-            var promptschema = {
-                properties: {
-                    title: {
-                        description: 'Episode title'.magenta
-                    },
-                    subtitle: {
-                        description: 'Episode subtitle'.cyan,
-                        default: podcasts[0].defaults.subtitle || ''
-                    },
-                    author: {
-                        description: 'Episode author'.white,
-                        default: podcasts[0].defaults.author || ''
-                    },
-                    image: {
-                        description: 'Cover image name'.yellow,
-                        default: podcasts[0].defaults.image || ''
-                    },
-                    summary: {
-                        description: 'Episode summary'.magenta,
-                        default: podcasts[0].defaults.summary || ''
-                    },
-                    audFile: {
-                        description: 'Audio file name'.cyan,
-                        default: podcasts[0].defaults.summary || ''
-                    },
-                    duration: {
-                        description: 'Episode duration'.white
-                    },
-                    isExplicit: {
-                        description: 'Explict? Yes/No'.yellow,
-                        default: podcasts[0].defaults.isExplicit || ''
-                    }
-                }
-            };
-
-            prompt.message = 'Podsmash'.rainbow;
-            prompt.delimiter = '  -->  '.rainbow;
-            prompt.get(promptschema, function (err, result) {
-                episode.title( result.title );
-                episode.subtitle( result.subtitle );
-                episode.author( result.author );
-                episode.image( result.image );
-                episode.summary( result.summary );
-                episode.audFile( result.audFile );
-                episode.duration( result.duration );
-                episode.isExplicit( result.isExplicit );
-                xml(podcasts[0].defaults, episode.getXMLishObject(), function(err){
-                    console.log( JSON.stringify(err) );
-                    throw err;
-                });
+            prompt(podcasts,episode,function(err){
+                throw err;
             });
-
         } else {
             //console.log( 'NO PODSFILE' );
             //fs.writeFile( PODSFILE, JSON.stringify( podcast ), 'utf8', function(){
