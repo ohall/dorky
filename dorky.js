@@ -40,28 +40,32 @@
 
 
     function Episode(pod){
-        console.log( 'POD:' + JSON.stringify(pod) );
         var title,subtitle,author,image,summary,file,duration,isExplicit,
+            defaults = pod[0].defaults,
             pubdate = getDateStamp();
-        return{
-            title       :function(ptitle){ title = ptitle; },
-            subtitle    :function(psubtitle){ subtitle = psubtitle; },
-            author      :function(pauthor){ author = pauthor; },
-            image       :function(pimage){ image = pimage; },
-            summary     :function(psummary){ summary = psummary; },
-            audFile     :function(pfile){ file = pfile; },
-            duration    :function(pduration){ duration = pduration; },
-            isExplicit  :function(pexp){ isExplicit = pexp; },
 
-            getXMLishObject:function(){
+        console.log( 'POD:' + JSON.stringify(defaults) );
+        return{
+            title       : function(ptitle){     title = ptitle; },
+            subtitle    : function(psubtitle){  subtitle = psubtitle; },
+            author      : function(pauthor){    author = pauthor; },
+            image       : function(pimage){     image = pimage; },
+            summary     : function(psummary){   summary = psummary; },
+            audFile     : function(pfile){      file = pfile; },
+            duration    : function(pduration){  duration = pduration; },
+            isExplicit  : function(pexp){       isExplicit = pexp; },
+
+            getDefaults      : function(){ return pod.defaults },
+            getAudioFileName : function(){ return file },
+            getXMLishObject  : function(){
                 var toreturn = {};
                 toreturn['title']           = title||'';
                 toreturn['itunes:subtitle'] = subtitle||'';
                 toreturn['itunes:author']   = author||'';
                 toreturn['itunes:image']    = image||'';
                 toreturn['itunes:summary']  = summary||'';
-                toreturn['enclosure']       = pod.serverpath + ( file || '' );
-                toreturn['guid']            = pod.serverpath + ( file || '' );
+                toreturn['enclosure']       = defaults.serverpath + ( file || '' );
+                toreturn['guid']            = defaults.serverpath + ( file || '' );
                 toreturn['itunes:duration'] = duration||'';
                 toreturn['pubDate']         = pubdate;
                 toreturn['itunes:explicit'] = isExplicit||'No';

@@ -22,8 +22,19 @@
 
         var fs = require('fs'),
             xml2js = require('xml2js'),
+            mm = require('musicmetadata'),
             parser = new xml2js.Parser(),
-            xmlPath = podcast.localpath + podcast.xmlFile;
+            localpath = podcast.getDefaults().localpath,
+            xmlPath = localpath + podcast.getDefaults().xmlFile;
+
+        // create a new parser from a node ReadStream
+        var parser = mm(fs.createReadStream( 'localpath'+'/'+ podcast.getAudioFileName() ));
+
+        // listen for the metadata event
+        parser.on('metadata', function (result) {
+            console.log(result);
+        });
+
 
         fs.readFile(xmlPath, function(err, data) {
             parser.parseString(data, function (err, result) {
